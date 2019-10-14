@@ -1,6 +1,7 @@
 package com.kodilla.testing.collection;
 import org.junit.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CollectionTestSuite {
     @Before
@@ -13,22 +14,24 @@ public class CollectionTestSuite {
     }
     @BeforeClass
     public static void beforeClass(){
-        System.out.println("Test Suite: begin");
+        System.out.println("Test Suite OddNumbersExterminator: begin");
     }
     @AfterClass
     public static void afterClass(){
-        System.out.println("Test Suite: end");
+        System.out.println("Test Suite OddNumbersExterminator: end");
     }
     @Test
     public void testOddNumbersExterminatorEmptyList(){
         //Given
         ArrayList <Integer> numbers = new ArrayList<>();
         //When
-        OddNumbersExterminator.exterminate(numbers);
-        int result = numbers.size();
-        System.out.println("Testing size: " + result);
+        ArrayList evenNumList = OddNumbersExterminator.exterminate(numbers);
+        boolean result = numbers.isEmpty();
+        boolean result1 = evenNumList.isEmpty();
+        System.out.println("Testing if empty: numbers list - " + result + ", even numbers list - " + result1);
         //Then
-        Assert.assertEquals(0, result);
+        Assert.assertTrue(result);
+        Assert.assertTrue(result1);
     }
     @Test
     public void testOddNumbersExterminatorNormalList(){
@@ -41,11 +44,13 @@ public class CollectionTestSuite {
         numbers.add(5);
         numbers.add(6);
         //When
-        OddNumbersExterminator.exterminate(numbers);
-
-        System.out.println();
+        ArrayList evenNumList = OddNumbersExterminator.exterminate(numbers);
+        System.out.println("Testing: numbers list " + numbers + " even numbers list: " + evenNumList);
+        boolean result = evenNumList.contains(2);
+        boolean result1 = numbers.contains(2);
         //Then
-
+        Assert.assertTrue(result);
+        Assert.assertTrue(result1);
     }
 
     }
