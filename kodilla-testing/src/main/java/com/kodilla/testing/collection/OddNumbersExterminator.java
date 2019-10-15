@@ -1,10 +1,11 @@
 package com.kodilla.testing.collection;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class OddNumbersExterminator {
 
-    public static ArrayList exterminate(ArrayList<Integer> numbers) {
+    public static List<Integer> exterminate(List<Integer> numbers) {
 
             ArrayList<Integer> evenNumList = new ArrayList<>();
 
