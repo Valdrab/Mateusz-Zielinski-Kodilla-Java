@@ -1,9 +1,9 @@
 package com.kodilla.testing.library;
 
 public class Book {
-    String title;
-    String author;
-    int publicationYear;
+    private final String title;
+    private final String author;
+    private final int publicationYear;
 
 
     public Book(String title, String author, int publicationYear) {
