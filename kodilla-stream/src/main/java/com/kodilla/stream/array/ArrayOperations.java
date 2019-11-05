@@ -6,16 +6,17 @@ public interface ArrayOperations {
 
     static double getAverage(int[] numbers){
 
-          IntStream.range(0, numbers.length)
-                 .map(n -> numbers [n])
-                 .forEach(System.out::println);
+        IntStream.range(0, numbers.length)
+                .map(n -> numbers [n])
+                .forEach(System.out::println);
 
-          double result = IntStream.range(0, numbers.length)
-                  .map(n -> numbers[n])
-                  .average()
-                  .getAsDouble();
+        double result = IntStream.range(0, numbers.length)
+                .map(n -> numbers[n])
+                .average()
+                .getAsDouble();
 
-          System.out.println("Average value is: " + result);
-          return result;
+        System.out.println("Average value is: " + result);
+
+        return result;
     }
 }
