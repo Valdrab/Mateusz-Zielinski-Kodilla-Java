@@ -1,5 +1,7 @@
 package com.kodilla.exception.test;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,12 +16,18 @@ public class FlightFinder {
         airportsMap.put("IEV", true);
         airportsMap.put("THR", false);
 
-        if (airportsMap.get(flight.getDepartureAirport()) && airportsMap.get(flight.getArrivalAirport())
-            && airportsMap.containsValue(true) && !flight.getArrivalAirport().equals(flight.getDepartureAirport())) {
+        if (isGivenFlightValid(airportsMap, flight)) {
             System.out.println("Route found: " + flight.getDepartureAirport() + " -> " + flight.getArrivalAirport());
         } else {
             throw new RouteNotFoundException();
         }
+    }
+
+    private boolean isGivenFlightValid(Map<String, Boolean> airportsMap, Flight flight) {
+        return airportsMap.get(flight.getDepartureAirport())
+                && airportsMap.get(flight.getArrivalAirport())
+                && airportsMap.containsValue(true)
+                && !flight.getArrivalAirport().equals(flight.getDepartureAirport());
     }
 
     public static void main(String[] args) {
