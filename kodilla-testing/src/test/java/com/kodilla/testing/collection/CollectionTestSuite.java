@@ -54,8 +54,6 @@ public class CollectionTestSuite {
         System.out.println("Testing: numbers list " + numbers + " even numbers list: " + evenNumList);
         //Then
         Assertions.assertThat(evenNumList).containsOnly(2, 4, 6);
-        Assertions.assertThat(numbers).contains(1, 2, 3, 4, 5, 6);
-
     }
 }
 
