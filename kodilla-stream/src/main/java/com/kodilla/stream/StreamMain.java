@@ -1,33 +1,24 @@
 package com.kodilla.stream;
 
-import com.kodilla.stream.beautifier.PoemBeautifier;
-import com.kodilla.stream.lambda.ExpressionExecutor;
-import com.kodilla.stream.reference.FunctionalCalculator;
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StreamMain {
-    public static void main(String[] args) {
-        ExpressionExecutor expressionExecutor = new ExpressionExecutor();
+        public static void main(String[] args) {
+            Forum forum = new Forum();
+            Map<Integer, ForumUser> resultMapOfUsers = forum.getForumUsersList().stream()
+                    .filter(forumUser -> forumUser.getSex() =='M')
+                    .filter(forumUser -> forumUser.getDateOfBirth().isBefore(LocalDate.of(1999,Month.OCTOBER,26)))
+                    .filter(forumUser -> forumUser.getNumberOfPublishedPosts() >= 1)
+                    .collect(Collectors.toMap(ForumUser::getUserId, forumUser -> forumUser));
 
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a + b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a - b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a * b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a / b);
-
-        System.out.println("Calculating expressions with method references");
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::multiplyAByB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::addAToB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::subBFromA);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::divideAByB);
-
-
-        PoemBeautifier poemBeautifier = new PoemBeautifier();
-
-        poemBeautifier.beautify("To be or not to be", text -> "ABC" + text + "ABC");
-        poemBeautifier.beautify("To be or not to be", (text -> text.toUpperCase()));
-        poemBeautifier.beautify("To be or not to be,", (text -> text.concat(" that is the question")));
-        poemBeautifier.beautify("TO BE OR NOT TO BE", (String::toLowerCase));
-        poemBeautifier.beautify("To be or not to be", (text -> text.replace('o', 'a')));
-        poemBeautifier.beautify("To be or not to be,", (text -> text.concat(" this is the hashcode of that question: ") + text.hashCode()));
-
+            resultMapOfUsers.entrySet().stream()
+                    .map(entry -> "Key: " + entry.getKey() + ", Value: " + entry.getValue())
+                    .forEach(System.out::println);
+        }
     }
-}
