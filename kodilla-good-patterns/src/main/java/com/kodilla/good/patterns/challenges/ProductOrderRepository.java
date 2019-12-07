@@ -7,7 +7,7 @@ public class ProductOrderRepository implements OrderRepository {
 
     @Override
     public boolean createOrder(User user, Product product, LocalDateTime orderDate) {
-
+        System.out.println("Order created");
         return true;
     }
 }
