@@ -1,26 +1,27 @@
 package com.kodilla.good.patterns.challenges.food2door;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class FoodOrder {
 
-    private Map<Product, Integer> orderContents;
+    private Map<Product, BigDecimal> orderContents;
     private Integer orderNo;
 
-    public FoodOrder(Map<Product, Integer> orderContents, Integer orderNo) {
+    public FoodOrder(Map<Product, BigDecimal> orderContents, Integer orderNo) {
         this.orderContents = orderContents;
         this.orderNo = orderNo;
     }
 
-    public double foodOrderPrice() {
-        double price = 0;
-        for (Map.Entry<Product, Integer> entry : orderContents.entrySet()) {
-            price += entry.getKey().getPrice() * entry.getValue();
+    public BigDecimal foodOrderPrice() {
+        BigDecimal price = new BigDecimal("0");
+        for (Map.Entry<Product, BigDecimal> entry : orderContents.entrySet()) {
+            price = price.add(entry.getKey().getPrice().multiply(entry.getValue()));
         }
-        return (double) Math.round(price * 100) / 100;
+        return price;
     }
 
-    public Map<Product, Integer> getOrderContents() {
+    public Map<Product, BigDecimal> getOrderContents() {
         return orderContents;
     }
 

@@ -2,28 +2,30 @@ package com.kodilla.good.patterns.challenges.flights;
 
 public class Flight {
 
-    private String departingFrom;
-    private String arrivingIn;
+    private String departure;
+    private String arrival;
 
-    public Flight(String departingFrom, String arrivingIn) {
-        this.departingFrom = departingFrom;
-        this.arrivingIn = arrivingIn;
+    public Flight(String departure, String arrival) {
+        this.departure = departure;
+        this.arrival = arrival;
     }
 
-    public String getDepartingFrom() {
-        return departingFrom;
+    public String getDeparture() {
+        return departure;
     }
 
-    public String getArrivingIn() {
-        return arrivingIn;
+    public String getArrival() {
+        return arrival;
     }
+
     @Override
     public String toString() {
         return "Flight{" +
-                "departingFrom='" + departingFrom + '\'' +
-                ", arrivingIn='" + arrivingIn + '\'' +
+                "departure='" + departure + '\'' +
+                ", arrival='" + arrival + '\'' +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,13 +33,14 @@ public class Flight {
 
         Flight flight = (Flight) o;
 
-        if (!getDepartingFrom().equals(flight.getDepartingFrom())) return false;
-        return getArrivingIn().equals(flight.getArrivingIn());
+        if (!getDeparture().equals(flight.getDeparture())) return false;
+        return getArrival().equals(flight.getArrival());
     }
+
     @Override
     public int hashCode() {
-        int result = getDepartingFrom().hashCode();
-        result = 31 * result + getArrivingIn().hashCode();
+        int result = getDeparture().hashCode();
+        result = 31 * result + getArrival().hashCode();
         return result;
     }
 }

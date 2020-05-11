@@ -1,18 +1,19 @@
 package com.kodilla.good.patterns.challenges.food2door;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class HealthyShop implements FoodProducer {
 
-    private Map<Product, Integer> stock;
+    private Map<Product, BigDecimal> stock;
 
-    public HealthyShop(Map<Product, Integer> stock) {
+    public HealthyShop(Map<Product, BigDecimal> stock) {
         this.stock = stock;
     }
 
-    public boolean productsInStock(Map<Product, Integer> foodOrder) {
-        for (Map.Entry<Product, Integer> entry : foodOrder.entrySet()) {
-            if (entry.getValue() > stock.get(entry.getKey())) {
+    public boolean productsInStock(Map<Product, BigDecimal> foodOrder) {
+        for (Map.Entry<Product, BigDecimal> entry : foodOrder.entrySet()) {
+            if (entry.getValue().compareTo(stock.get(entry.getKey())) > 0) {
                 return false;
             }
         }
