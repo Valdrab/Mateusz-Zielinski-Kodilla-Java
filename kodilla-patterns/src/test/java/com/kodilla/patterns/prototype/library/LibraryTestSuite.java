@@ -13,7 +13,7 @@ public class LibraryTestSuite {
         Book book1 = new Book("First book", "Some old dude", LocalDate.of(1983, 12, 12));
         Book book2 = new Book("Second book", "Some other dude", LocalDate.of(2007, 10, 8));
         Book book3 = new Book("Third book", "Someone else", LocalDate.of(2015, 1, 1));
-        Book book4 = new Book("Fourth book", "Got no idea", LocalDate.of(1900, 3, 29 ));
+        Book book4 = new Book("Fourth book", "Got no idea", LocalDate.of(1900, 3, 29));
         library.getBooks().add(book1);
         library.getBooks().add(book2);
         library.getBooks().add(book3);

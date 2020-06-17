@@ -1,7 +1,5 @@
 package com.kodilla.exception.test;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.util.HashMap;
 import java.util.Map;
 
