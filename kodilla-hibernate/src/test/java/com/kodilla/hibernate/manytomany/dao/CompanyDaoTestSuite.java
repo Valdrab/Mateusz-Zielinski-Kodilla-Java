@@ -116,7 +116,7 @@ public class CompanyDaoTestSuite {
 
         //Then
         try {
-            Assert.assertEquals(3, datCompanies.size());
+            Assert.assertEquals(2, datCompanies.size());
         } finally {
             //CleanUp
             companyDao.delete(softwareMachine);
