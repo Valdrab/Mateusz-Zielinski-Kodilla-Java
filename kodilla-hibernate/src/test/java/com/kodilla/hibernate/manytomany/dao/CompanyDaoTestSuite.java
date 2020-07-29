@@ -99,6 +99,38 @@ public class CompanyDaoTestSuite {
     }
 
     @Test
+    public void testRetrieveEmployeesByNameFragment() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+        Employee walterSmith = new Employee("Walter", "Smith");
+
+        employeeDao.save(johnSmith);
+        int johnId = johnSmith.getId();
+        employeeDao.save(stephanieClarckson);
+        int stephanieId = stephanieClarckson.getId();
+        employeeDao.save(lindaKovalsky);
+        int lindaId = lindaKovalsky.getId();
+        employeeDao.save(walterSmith);
+        int walterId = walterSmith.getId();
+
+        //When
+        List<Employee> ndas = employeeDao.retrieveEmployeesByNameFragment("nda");
+
+        //Then
+        try {
+            Assert.assertEquals(1, ndas.size());
+        } finally {
+            //CleanUp
+            employeeDao.deleteById(johnId);
+            employeeDao.deleteById(stephanieId);
+            employeeDao.deleteById(lindaId);
+            employeeDao.deleteById(walterId);
+        }
+    }
+
+    @Test
     public void testRetrieveCompaniesByFirstThreeChars() {
         //Given
         Company softwareMachine = new Company("Software Machine");
@@ -117,6 +149,33 @@ public class CompanyDaoTestSuite {
         //Then
         try {
             Assert.assertEquals(2, datCompanies.size());
+        } finally {
+            //CleanUp
+            companyDao.delete(softwareMachine);
+            companyDao.delete(dataMaesters);
+            companyDao.delete(greyMatter);
+            companyDao.delete(dataMiners);
+        }
+    }
+    @Test
+    public void testRetrieveCompaniesByNameFragment() {
+        //Given
+        Company softwareMachine = new Company("Software Machine");
+        Company dataMaesters = new Company("Data Maesters");
+        Company greyMatter = new Company("Grey Matter");
+        Company dataMiners = new Company("Data Miners");
+
+        companyDao.save(softwareMachine);
+        companyDao.save(dataMaesters);
+        companyDao.save(greyMatter);
+        companyDao.save(dataMiners);
+
+        //When
+        List<Company> companies = companyDao.retrieveCompaniesByNameFragment("Ma");
+
+        //Then
+        try {
+            Assert.assertEquals(3, companies.size());
         } finally {
             //CleanUp
             companyDao.delete(softwareMachine);

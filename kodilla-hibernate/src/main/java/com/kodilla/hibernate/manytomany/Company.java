@@ -8,8 +8,12 @@ import java.util.List;
 @NamedNativeQuery(
         name = "Company.retrieveCompaniesByFirstThreeChars",
         query = "SELECT * FROM COMPANIES WHERE SUBSTRING(COMPANY_NAME, 1, 3) = :NAME",
-        resultClass = Company.class
-)
+        resultClass = Company.class)
+
+@NamedQuery(
+        name = "Company.retrieveCompaniesByNameFragment",
+        query = "FROM Company WHERE name LIKE CONCAT ('%', :NAME_FRAGMENT, '%')")
+
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
