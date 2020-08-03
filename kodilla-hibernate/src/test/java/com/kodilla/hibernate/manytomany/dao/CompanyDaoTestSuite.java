@@ -8,11 +8,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class CompanyDaoTestSuite {
     @Autowired
     CompanyDao companyDao;
@@ -57,13 +59,9 @@ public class CompanyDaoTestSuite {
         Assert.assertNotEquals(0, greyMatterId);
 
         //CleanUp
-        try {
-            companyDao.deleteById(softwareMachineId);
-            companyDao.deleteById(dataMaestersId);
-            companyDao.deleteById(greyMatterId);
-        } catch (Exception e) {
-            //do nothing
-        }
+        companyDao.deleteById(softwareMachineId);
+        companyDao.deleteById(dataMaestersId);
+        companyDao.deleteById(greyMatterId);
     }
 
     @Test
@@ -87,15 +85,13 @@ public class CompanyDaoTestSuite {
         List<Employee> theSmiths = employeeDao.retrieveEmployeesByLastName("Smith");
 
         //Then
-        try {
-            Assert.assertEquals(2, theSmiths.size());
-        } finally {
-            //CleanUp
-            employeeDao.deleteById(johnId);
-            employeeDao.deleteById(stephanieId);
-            employeeDao.deleteById(lindaId);
-            employeeDao.deleteById(walterId);
-        }
+        Assert.assertEquals(2, theSmiths.size());
+
+        //CleanUp
+        employeeDao.deleteById(johnId);
+        employeeDao.deleteById(stephanieId);
+        employeeDao.deleteById(lindaId);
+        employeeDao.deleteById(walterId);
     }
 
     @Test
@@ -119,15 +115,13 @@ public class CompanyDaoTestSuite {
         List<Employee> ndas = employeeDao.retrieveEmployeesByNameFragment("nda");
 
         //Then
-        try {
-            Assert.assertEquals(1, ndas.size());
-        } finally {
-            //CleanUp
-            employeeDao.deleteById(johnId);
-            employeeDao.deleteById(stephanieId);
-            employeeDao.deleteById(lindaId);
-            employeeDao.deleteById(walterId);
-        }
+        Assert.assertEquals(1, ndas.size());
+
+        //CleanUp
+        employeeDao.deleteById(johnId);
+        employeeDao.deleteById(stephanieId);
+        employeeDao.deleteById(lindaId);
+        employeeDao.deleteById(walterId);
     }
 
     @Test
@@ -147,16 +141,15 @@ public class CompanyDaoTestSuite {
         List<Company> datCompanies = companyDao.retrieveCompaniesByFirstThreeChars("Dat");
 
         //Then
-        try {
-            Assert.assertEquals(2, datCompanies.size());
-        } finally {
-            //CleanUp
-            companyDao.delete(softwareMachine);
-            companyDao.delete(dataMaesters);
-            companyDao.delete(greyMatter);
-            companyDao.delete(dataMiners);
-        }
+        Assert.assertEquals(2, datCompanies.size());
+
+        //CleanUp
+        companyDao.delete(softwareMachine);
+        companyDao.delete(dataMaesters);
+        companyDao.delete(greyMatter);
+        companyDao.delete(dataMiners);
     }
+
     @Test
     public void testRetrieveCompaniesByNameFragment() {
         //Given
@@ -174,14 +167,12 @@ public class CompanyDaoTestSuite {
         List<Company> companies = companyDao.retrieveCompaniesByNameFragment("Ma");
 
         //Then
-        try {
-            Assert.assertEquals(3, companies.size());
-        } finally {
-            //CleanUp
-            companyDao.delete(softwareMachine);
-            companyDao.delete(dataMaesters);
-            companyDao.delete(greyMatter);
-            companyDao.delete(dataMiners);
-        }
+        Assert.assertEquals(3, companies.size());
+
+        //CleanUp
+        companyDao.delete(softwareMachine);
+        companyDao.delete(dataMaesters);
+        companyDao.delete(greyMatter);
+        companyDao.delete(dataMiners);
     }
 }

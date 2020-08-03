@@ -10,11 +10,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class CompanyEmployeeFacadeTestSuite {
     @Autowired
     private CompanyEmployeeFacade companyEmployeeFacade;
@@ -40,48 +42,44 @@ public class CompanyEmployeeFacadeTestSuite {
 
         //When
         List<Company> companies = companyEmployeeFacade.findCompanyByNameFragment("war");
-        //Then
-        try {
-            Assert.assertEquals(1, companies.size());
-        } finally {
-            //CleanUp
-            companyDao.delete(softwareMachine);
-            companyDao.delete(dataMaesters);
-            companyDao.delete(greyMatter);
-            companyDao.delete(dataMiners);
-        }
 
+        //Then
+        Assert.assertEquals(1, companies.size());
+
+        //CleanUp
+        companyDao.delete(softwareMachine);
+        companyDao.delete(dataMaesters);
+        companyDao.delete(greyMatter);
+        companyDao.delete(dataMiners);
     }
 
     @Test
     public void testFindEmployeeByNameFragment() {
-            //Given
-            Employee johnSmith = new Employee("John", "Smith");
-            Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
-            Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
-            Employee stephanieSmith = new Employee("Stephanie", "Smith");
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+        Employee stephanieSmith = new Employee("Stephanie", "Smith");
 
-            employeeDao.save(johnSmith);
-            int johnId = johnSmith.getId();
-            employeeDao.save(stephanieClarckson);
-            int stephanieId = stephanieClarckson.getId();
-            employeeDao.save(lindaKovalsky);
-            int lindaId = lindaKovalsky.getId();
-            employeeDao.save(stephanieSmith);
-            int stephanie2Id = stephanieSmith.getId();
+        employeeDao.save(johnSmith);
+        int johnId = johnSmith.getId();
+        employeeDao.save(stephanieClarckson);
+        int stephanieId = stephanieClarckson.getId();
+        employeeDao.save(lindaKovalsky);
+        int lindaId = lindaKovalsky.getId();
+        employeeDao.save(stephanieSmith);
+        int stephanie2Id = stephanieSmith.getId();
 
-            //When
-            List<Employee> namesStephanieList = companyEmployeeFacade.findEmployeeByNameFragment("Steph");
+        //When
+        List<Employee> namesStephanieList = companyEmployeeFacade.findEmployeeByNameFragment("Steph");
 
-            //Then
-            try {
-                Assert.assertEquals(2, namesStephanieList.size());
-            } finally {
-                //CleanUp
-                employeeDao.deleteById(johnId);
-                employeeDao.deleteById(stephanieId);
-                employeeDao.deleteById(lindaId);
-                employeeDao.deleteById(stephanie2Id);
-            }
-    }
+        //Then
+        Assert.assertEquals(2, namesStephanieList.size());
+
+        //CleanUp
+        employeeDao.deleteById(johnId);
+        employeeDao.deleteById(stephanieId);
+        employeeDao.deleteById(lindaId);
+        employeeDao.deleteById(stephanie2Id);
+        }
 }
