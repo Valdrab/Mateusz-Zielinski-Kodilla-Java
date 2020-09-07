@@ -28,7 +28,7 @@ public class CrudAppTestSuite {
 
     @After
     public void cleanUpAfterTest() {
-        //driver.close();
+        driver.quit();
     }
 
     private String createCrudAppTestTask() throws InterruptedException {
@@ -49,6 +49,25 @@ public class CrudAppTestSuite {
         Thread.sleep(2000);
 
         return taskName;
+    }
+
+    private void deleteCrudAppTestTask(String taskName) throws InterruptedException {
+        WebDriver driverDelete = WebDriverConfig.getDriver(WebDriverConfig.FIREFOX);
+        driverDelete.get(BASE_URL);
+
+        while (!driverDelete.findElement(By.xpath("//select[1]")).isDisplayed());
+
+        driverDelete.findElements(By.xpath("//form[@class=\"datatable__row\"]")).stream()
+                .filter(anyForm ->
+                        anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]"))
+                                .getText().equals(taskName))
+                .forEach(theForm -> {
+                        WebElement delete =
+                            theForm.findElement(By.xpath(".//div/fieldset[1]/button[4]"));
+                        delete.click();
+                });
+        Thread.sleep(1000);
+        driverDelete.close();
     }
 
     private void sendTestTaskToTrello(String taskName) throws InterruptedException {
@@ -79,16 +98,16 @@ public class CrudAppTestSuite {
         driverTrello.get(TRELLO_URL);
 
         driverTrello.findElement(By.id("user")).sendKeys("mathez@wp.pl");
-        driverTrello.findElement(By.id("password")).sendKeys("REIN59rt#");
+        driverTrello.findElement(By.id("password")).sendKeys("KodillaPassword");
         WebElement el = driverTrello.findElement(By.id("login"));
         el.submit();
 
         Thread.sleep(4000);
 
-        driverTrello.findElement(By.id("password")).sendKeys("REIN59rt#");
+        driverTrello.findElement(By.id("password")).sendKeys("KodillaPassword");
         driverTrello.findElement(By.id("login-submit")).submit();
 
-        Thread.sleep(18000);
+        Thread.sleep(13000);
 
         driverTrello.findElements(By.xpath("//div[contains(@title, \"Kodilla Application\")]"))
                 .forEach(WebElement::click);
@@ -111,5 +130,6 @@ public class CrudAppTestSuite {
         String taskName = createCrudAppTestTask();
         sendTestTaskToTrello(taskName);
         assertTrue(checkTaskExistsInTrello(taskName));
+        deleteCrudAppTestTask(taskName);
     }
 }
