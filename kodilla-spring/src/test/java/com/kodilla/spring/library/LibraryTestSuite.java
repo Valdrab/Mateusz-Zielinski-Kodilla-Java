@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(properties = "spring.main.allow-bean-definition-overriding=true")
+@SpringBootTest
 public class LibraryTestSuite {
     @Test
     public void testLoadFromDb() {
